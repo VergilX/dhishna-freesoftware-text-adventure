@@ -1,0 +1,10 @@
+Story text file format:
+
+id=<no>
+type=<type_no>
+
+[for type=1]
+character_design=< 0 for no | 1 for yes >
+music=<path>
+script=<script>
+choices=<dict>

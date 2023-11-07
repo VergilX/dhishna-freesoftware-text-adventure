@@ -1,0 +1,5 @@
+id=1
+type=1
+character_design=0
+script=Test works ig
+choices={'1,yes':2}
