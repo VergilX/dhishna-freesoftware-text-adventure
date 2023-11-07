@@ -7,11 +7,7 @@ STORY_SOURCE_DIRECTORY = "../story/"
 SAVE_FILE = f"{STORY_SOURCE_DIRECTORY}/save.txt"
 
 def get_story(file, id):
-    """
-    Read story file and get content of story
-
-    Returns True if story is found else False
-    """
+    """ Read story file and get content of story """
 
     DELIMITER = "`"
 
@@ -24,24 +20,25 @@ def get_story(file, id):
             if current_story_id != id:
                 # Skipping to next story using delimiter
                 for line in f:
-                    if line == DELIMITER:
-                        continue
+                    if line.rstrip() == DELIMITER:
+                        break
                 else:
-                    return story_found
+                    raise Exception(f"Story ID {id} not found")
 
             # If story is found
-            story_found = True
-            story_type = int(f.readline().split("=")[1])
+            else:
+                story_found = True
+                story_type = int(f.readline().split("=")[1])
 
-            if story_type == 1:
-                data = {}
-                for line in f:
-                    key, value = line.split("=")
-                    data[key] = value.rstrip()
+                if story_type == 1:
+                    data = {}
+                    for line in f:
+                        key, value = line.split("=")
+                        data[key] = value.rstrip()
 
-                generate_text_story(data)
+                    next_story_id = generate_text_story(data)
 
-        return story_found
+        return next_story_id
 
 def generate_minigame():
     pass
@@ -59,5 +56,7 @@ if __name__ == "__main__":
     else:
         id = int(sys.argv[1])
         file = STORY_SOURCE_DIRECTORY + "story.txt"
-        if not get_story(file, id):
+        try:
+            get_story(file, id)
+        except Exception:
             print("Story not found")

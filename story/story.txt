@@ -3,3 +3,7 @@ type=1
 character_design=0
 script=Test works ig
 choices={'1,yes':2}
+`
+id=2
+type=2
+`

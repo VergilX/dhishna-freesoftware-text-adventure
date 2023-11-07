@@ -18,6 +18,9 @@ def main():
     except KeyboardInterrupt:
         # Do you want to exit or not
         pass
+    except Exception:
+        # Modify this to read the error contained in exception
+        print("Story ID not found")
 
 if __name__ == "__main__":
     main()
