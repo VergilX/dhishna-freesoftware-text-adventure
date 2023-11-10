@@ -1,9 +1,11 @@
 id=1
 type=1
 character_design=0
-script=Test works ig
+script=Tony Bryan was a young man aspiring to be an entrepreneur.\nHe tried his best to develop his social skills and his likability.\nBut what he lacked the most was confidence.
 choices={'1,yes':2}
+next=2
+prev=0
 `
 id=2
 type=2
-`
+script=Success!
