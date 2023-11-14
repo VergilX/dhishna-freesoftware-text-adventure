@@ -9,29 +9,37 @@ MUSIC_DIRECTORY = "music/"
 
 class MusicPlayer:
     def __init__(self):
+        self.currently_playing = 0
         pygame.init()
         pygame.mixer.init()
 
     def __del__(self):
         pygame.quit()
 
-    def load(self, filepath):
+    def play(self, filepath):
         """ Loads the music sound file """
 
-        pygame.mixer.music.load(MUSIC_DIRECTORY+filepath)
+        pygame.mixer.Channel(self.currently_playing).play(pygame.mixer.Sound(MUSIC_DIRECTORY+filepath))
+        self.currently_playing += 1
 
-    def play(self):
-        """ Plays loaded music """
-
-        pygame.mixer.music.play()
-
-    def pause(self):
+    def pause(self, channel_no=None):
         """ Pause playing music """
 
-        pygame.mixer.music.pause()
+        if channel_no is not None:
+            pygame.mixer.Channel(channel_no).pause()
+        else:
+            pygame.mixer.Channel(self.currently_playing).pause()
 
-    def unpause(self):
-        pygame.mixer.music.unpause()
+    def unpause(self, channel_no=None):
 
-    def stop(self):
-        pygame.mixer.music.stop()
+        if channel_no is not None:
+            pygame.mixer.Channel(channel_no).unpause()
+        else:
+            pygame.mixer.Channel(self.currently_playing).unpause()
+
+    def stop(self, channel_no=None):
+
+        if channel_no is not None:
+            pygame.mixer.Channel(channel_no).stop()
+        else:
+            pygame.mixer.Channel(self.currently_playing).stop()
