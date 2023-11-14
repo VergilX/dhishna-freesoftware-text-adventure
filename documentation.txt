@@ -1,10 +1,28 @@
 Story text file format:
+=======================
 
 id=<no>
 type=<type_no>
 
 [for type=1]
 character_design=< 0 for no | 1 for yes >
-music=<path>
+design_path=<path_to_file>
+music=<dict> {when:path}
+title=<title>
 script=<script>
 choices=<dict>
+
+[for type=2]
+game_path=<filepath>
+
+[for type=3]
+
+Save file format:
+user=<id>
+path=< [<id>,<id>,<id>,<id>] >
+
+
+Python dependencies:
+====================
+pygame==2.5.2
+python==3.11.5

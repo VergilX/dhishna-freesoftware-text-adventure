@@ -7,6 +7,7 @@ from src.processing import generate_story
 
 STORY_SOURCE_DIRECTORY = "story/"
 STORY_FILE = "story.txt"
+SAVE_FILE = "src/save.txt"
 
 def main():
     # id set to -1 when game ends

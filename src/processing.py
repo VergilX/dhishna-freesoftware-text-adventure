@@ -2,10 +2,24 @@
 Generates story from database text file
 """
 import ast
+import pygame
 import sys
+from src.music import MusicPlayer
+import time
 
 STORY_SOURCE_DIRECTORY = "../story/"
 SAVE_FILE = f"{STORY_SOURCE_DIRECTORY}/save.txt"
+
+# Initialize music player
+music_player = MusicPlayer()
+
+def dprint(parameter, delay=0.05):
+    """ Delayed printing of text """
+
+    if type(parameter) == str:
+        for character in parameter:
+            print(character, flush=True, end='')
+            time.sleep(delay)
 
 def generate_story(file, id):
     """ Read story file and get content of story """
@@ -63,8 +77,13 @@ def generate_map():
 def generate_text_story(data):
     """ Generates story text, takes choice of user and returns id of next story """
 
-    # Add music, slowness
-    print(data["script"].replace("\\n", "\n"))
+    # Add music, slowness and GOOD LAYOUT
+    music_list = ast.literal_eval(data["music"])
+    music_player.play(music_list["bg"])
+
+    music_player.play(music_list["script"])
+    dprint(data["script"].replace("\\n", "\n"))
+    music_player.stop()
     choices = ast.literal_eval(data["choices"])
 
     # Change to dynamic choice using curses module
@@ -79,7 +98,7 @@ def generate_text_story(data):
         try:
             choice = int(input("Your choice: "))
             if not (0 < choice <= choices_limit):
-                raise ValueError("Invalid range")
+                raise ValueError("Invalid choice range")
         except ValueError:
             # Can add funkier replies
             print("Are you retarded?")
